@@ -238,6 +238,36 @@ USArrests %>% gather(key ='Tipos_de_crime', value = 'Valores', -State) #%>% grou
 ```
 
 
+
 ## ggplot
+O ggplot2 é mais do que um pacote para fazer gráficos; ele é a
+implementação da gramática dos gráficos em camadas no R.
+
+Os gráficos criados pelo ggplot2 são compostos por 9 elementos e
+este tutorial está focado em dois deles: mapeamento de estéticas
+(aesthetic) e geometrias.
+```{r, fig.align='center', out.width='55%', fig.cap='', fig.show='hold'}
+knitr::include_graphics('ggplot.jpeg')
+```
+
 
 ## forcats
+Grande parte da frustração associada ao uso de fatores no R existe por conta da falta de algumas ferramentas úteis no pacote base. Para resolver esse o problema, Hadley Wickham ajudou a comunidade R desenvolvendo o pacote forcats(for categorial variables), que implementa algumas dessas ferramentas.
+
+As principais funções do forcats servem para alterar a ordem e modificar os níveis de um fator.
+
+  - Fatores
+```{r, echo=TRUE, collapse=TRUE,results='hide',message=FALSE}
+melanoma=read_xlsx("melanoma.xlsx")
+library(forcats)
+```
+```{r,echo=TRUE}
+melanoma=read_xlsx("melanoma.xlsx")
+str(melanoma$ulcer) # Perceba aqui, que as variáveis são númericas
+lvls_revalue(factor(melanoma$ulcer),c("ausente","presente"))
+```
+
+## Exercicios
+- Modifique os fatores das colunas 'sex' e 'status' do banco de dados melanoma
+
+- Modifique os fatores das colunas 'age' e 'survived' do banco de dados titanic
