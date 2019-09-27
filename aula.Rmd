@@ -1,7 +1,7 @@
 ---
 title: "Introdução ao Tidyverse"
-author: "Daniel Jacinto, Jamily Santos e Raul Lima"
-date: "29 de abril de 2019"
+author: "Raul Lima e parceiros"
+date: "27 de Setembro de 2019"
 output:
   slidy_presentation: default
   beamer_presentation:
@@ -159,7 +159,7 @@ summarise(mean_employees = mean(Employees), mean_income = mean(Income)) %>% arra
 
 Dica: usar `mean(, na.rm = TRUE)`
 
-## 
+## Solução
 ```{r,echo=TRUE}
 library(nycflights13)
 data("flights")
@@ -228,13 +228,21 @@ table2 %>% unite(type_year, type, year) %>% spread(key = type_year, value = coun
 ```
 
 ## Exercício
-Reduza o banco de dados `Florida` em duas colunas, conservando as informações.
+Utilizando o banco de dados `sleep` faça uma nova tabela tomando como base a variavel `group`.
 
-##
-```{r, echo=TRUE}
+## Solução
+```{r,include=FALSE}
 data("USArrests")
 head(USArrests); USArrests$State <- row.names(USArrests)
-USArrests %>% gather(key ='Tipos_de_crime', value = 'Valores', -State) #%>% group_by(Tipos_de_crime) %>% summarise(media <- mean(Valores))
+USArrests %>% gather(key ='Tipos_de_crime', value = 'Valores', -State) %>% group_by(Tipos_de_crime) %>% summarise(media <- mean(Valores))
+
+table4b
+table4b %>% 
+  gather('1999', '2000', key = "year", value = "population")
+```
+
+```{r, echo=TRUE}
+sleep %>% spread(key = group, value=extra)
 ```
 
 
