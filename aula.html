@@ -769,6 +769,10 @@ read_xlsx()</code></pre>
 <div id="resolucao" class="slide section level2">
 <h1>resolução</h1>
 <p>É utilizado o comando <code>factor()</code> pois a coluna não está no tipo fator, quando quiser saber o tipo que é cada coluna utilize o comando <code>str()</code>.</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1">melanoma<span class="op">$</span>sex &lt;-<span class="st"> </span><span class="kw">lvls_revalue</span>(<span class="kw">factor</span>(melanoma<span class="op">$</span>sex), <span class="kw">c</span>(<span class="st">&quot;female&quot;</span>, <span class="st">&quot;male&quot;</span>))</a>
+<a class="sourceLine" id="cb41-2" data-line-number="2">melanoma<span class="op">$</span>status &lt;-<span class="st"> </span><span class="kw">lvls_revalue</span>(<span class="kw">factor</span>(melanoma<span class="op">$</span>status),</a>
+<a class="sourceLine" id="cb41-3" data-line-number="3">                                <span class="kw">c</span>(<span class="st">&quot;died&quot;</span>, <span class="st">&quot;alive&quot;</span>, <span class="st">&quot;dead urelated&quot;</span>))</a>
+<a class="sourceLine" id="cb41-4" data-line-number="4"><span class="kw">head</span>(melanoma)</a></code></pre></div>
 <pre><code>## # A tibble: 6 x 7
 ##    time status        sex      age  year thickness ulcer
 ##   &lt;dbl&gt; &lt;fct&gt;         &lt;fct&gt;  &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;

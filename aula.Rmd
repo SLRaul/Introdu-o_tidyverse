@@ -292,7 +292,7 @@ lvls_revalue(factor(melanoma$ulcer),c("ausente","presente"))
 
 ## resolução
 É utilizado o comando `factor()` pois a coluna não está no tipo fator, quando quiser saber o tipo que é cada coluna utilize o comando `str()`.
-```{r}
+```{r, echo=T}
 melanoma$sex <- lvls_revalue(factor(melanoma$sex), c("female", "male"))
 melanoma$status <- lvls_revalue(factor(melanoma$status),
                                 c("died", "alive", "dead urelated"))
