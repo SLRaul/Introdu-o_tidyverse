@@ -1,17 +1,19 @@
 ---
 title: "Introdução ao Tidyverse"
 author: "Raul Lima e parceiros"
-date: "27 de Setembro de 2019"
+date: "08 de Outubro de 2019"
 output:
   slidy_presentation: default
   beamer_presentation:
     colortheme: dolphin
     fonttheme: structurebold
     theme: default
+   
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
 ```
 
 ## O que é tidyverse?
@@ -49,18 +51,23 @@ read_csv("fullbusiness.csv")
 ##
 
   - Arquivo separado por " , "
-```{r, echo=TRUE, collapse=TRUE,results='hide',message=FALSE,error=FALSE}
-#read_csv()
+```
+read_csv()
 ```
   - Arquivo separado por " ; "
-```{r, echo=TRUE, collapse=TRUE,results='hide',message=FALSE,error=FALSE}
-#read_csv2()
+```
+read_csv2()
 ```
   - Arquivo separado por espaço
-```{r, echo=TRUE, collapse=TRUE,results='hide',message=FALSE,error=FALSE}
-#read_tsv()
-#read_table2()
 ```
+read_tsv()
+```
+
+ - Arquico com delimitações
+```
+read_delim()
+```
+ 
 ## Exercícios
 
   - Importe o banco de dados fullbusiness
@@ -71,9 +78,13 @@ read_csv("fullbusiness.csv")
 
 ## Complemento
 
-  - Dados do tipo Excel (.xlsx)
-```{r, echo=TRUE, collapse=TRUE,results='hide',message=FALSE,error=FALSE}
-#read_xlsx()
+  - Dados do tipo Excel (.xls/.xlsx)
+```
+install.packages("readxl")
+library(readxl)
+read_excel()
+read_xls()
+read_xlsx()
 ```
 
   - Importar banco de dados melanoma
@@ -104,7 +115,7 @@ Função que seleciona ou retira determinada variável do seu data frame (coluna
 Selecionando variáveis:
 ```{r, message=FALSE, echo=TRUE}
 library(dplyr)
-fullbusiness <- read_csv("fullbusiness.csv")
+fullbusiness <- read_delim("fullbusiness.csv", delim= ",")
 #head(fullbusiness)
 renda_zona <- fullbusiness %>% select(Zone, Income)
 #head(renda_zona)
@@ -166,7 +177,7 @@ data("flights")
 #str(flights)
 flights %>% select(month, arr_delay, dep_delay) %>% group_by(month) %>% 
   summarise(dep_delay_mean = mean(dep_delay, na.rm =  TRUE),arr_delay_mean = mean(arr_delay, na.rm = TRUE)) %>%
-  arrange(dep_delay_mean)
+  arrange()
 ```
 
 
@@ -190,7 +201,7 @@ knitr::include_graphics('tabela_explicativa.png')
 ```
 
 ## `gather()`
-Utilizada para agrupar duas ou mais colunas e seus respectivos valores em pares, assim  o resultado apoós o agrupamento é sempre duas colunas
+Utilizada para agrupar duas ou mais colunas e seus respectivos valores em pares, assim  o resultado após o agrupamento é sempre duas colunas
 
 Nesse comando o primeiro informa-se a coluna que aguarda as variáveis das linhas, segundo informa-se os valores de cada linhas.
 ```{r, echo=TRUE}
@@ -222,7 +233,7 @@ dados_separado[1:3,]
 
 ## `unite()`
 
-Sendo o oposto da função anterior, ela duas colunas e as tranforma em uma.
+Sendo o oposto da função anterior, ela junta duas colunas e as tranforma em uma.
 ```{r, echo=TRUE}
 table2 %>% unite(type_year, type, year) %>% spread(key = type_year, value = count, sep = '_')
 ```
@@ -266,16 +277,25 @@ As principais funções do forcats servem para alterar a ordem e modificar os n�
 
   - Fatores
 ```{r, echo=TRUE, collapse=TRUE,results='hide',message=FALSE}
-melanoma=read_xlsx("melanoma.xlsx")
 library(forcats)
 ```
 ```{r,echo=TRUE}
-melanoma=read_xlsx("melanoma.xlsx")
+melanoma <- read_xlsx("melanoma.xlsx")
 str(melanoma$ulcer) # Perceba aqui, que as variáveis são númericas
 lvls_revalue(factor(melanoma$ulcer),c("ausente","presente"))
 ```
 
-## Exercicios
+## Exercícios
 - Modifique os fatores das colunas 'sex' e 'status' do banco de dados melanoma
 
 - Modifique os fatores das colunas 'age' e 'survived' do banco de dados titanic
+
+## resolução
+É utilizado o comando `factor()` pois a coluna não está no tipo fator, quando quiser saber o tipo que é cada coluna utilize o comando `str()`.
+```{r}
+melanoma$sex <- lvls_revalue(factor(melanoma$sex), c("female", "male"))
+melanoma$status <- lvls_revalue(factor(melanoma$status),
+                                c("died", "alive", "dead urelated"))
+head(melanoma)
+```
+
